@@ -11,7 +11,7 @@ import random
 # Function to extract the nouns 
 word = ""
 def ColorNounExtractor(text):
-    color_list = ['pink', 'blue', 'yellow', 'rainbow', 'neon', 'red', 'green', 'purple', 'orange', 'turquoise', 'gold', 'silver']
+    color_list = ['pink', 'holographic','blue', 'yellow', 'rainbow', 'neon', 'red', 'green', 'purple', 'orange', 'turquoise', 'gold', 'silver']
     color = random.choice(color_list)
    # print('COLOR IS: ' + color)
    # print('NOUNS EXTRACTED :')
@@ -21,10 +21,12 @@ def ColorNounExtractor(text):
         words = nltk.word_tokenize(sentence)
         words = [word for word in words if word not in set(stopwords.words('english'))]
         tagged = nltk.pos_tag(words)
+        i = 0
         for (word, tag) in tagged:
-            if tag == 'NN': # If the word is a proper noun
+            if tag == 'NN' and i == 0: # If the word is a noun
                 textGenPromptOut = color + ' ' + word
                 print (textGenPromptOut)
-                return textGenPromptOut
+                i += 1
+    return textGenPromptOut
         
-ColorNounExtractor('The cat and the hat went for a walk in town.')
+ColorNounExtractor('The fat elephant was tired and fell asleep fast in town.')
